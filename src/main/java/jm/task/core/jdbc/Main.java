@@ -14,19 +14,32 @@ public class Main {
 
     public static void main(String[] args) {
 
-        UserDaoHibernateImpl uD = new UserDaoHibernateImpl();
+        List<User> userList = new ArrayList<>();
 
-/*        uD.saveUser("Egor", "Egorovich", (byte)10);
-        uD.saveUser("Egor", "Egorovich", (byte)11);
-        uD.saveUser("Egor", "Egorovich", (byte)12);
-        uD.saveUser("Egor", "Egorovich", (byte)13);
+        userList.add(new User("Egor", "Evgenivich", (byte) 8));
+        userList.add(new User("Artem", "Egorovich", (byte) 9));
+        userList.add(new User("Maxim", "Atemovich", (byte) 10));
+        userList.add(new User("Evgeniy", "Maximovich", (byte) 11));
 
-        uD.cleanUsersTable();
+        UserServiceImpl uS = new UserServiceImpl();
 
-        List<User> users = uD.getAllUsers();
+        uS.createUsersTable();
 
-        for(User user: users){
+        for (User user : userList) {
+            uS.saveUser(user.getName(), user.getLastName(), user.getAge());
+            System.out.println("User " + user.getName() + " successfully added to database");
+        }
+
+        System.out.println("\n\n");
+
+        List<User> users = uS.getAllUsers();
+
+        for (User user : users) {
             System.out.println(user + "\n");
-        }*/
+        }
+
+        uS.cleanUsersTable();
+        uS.dropUsersTable();
+
     }
 }
