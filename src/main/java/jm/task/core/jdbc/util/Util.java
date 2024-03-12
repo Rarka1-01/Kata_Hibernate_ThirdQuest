@@ -26,9 +26,9 @@ public class Util {
     private Driver driver;
     private SessionFactory sessionFactory;
 
-    public Util(){
+    public Util() {
 
-        try{
+        try {
             Configuration con = new Configuration();
             con.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
             con.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/katauser");
@@ -42,28 +42,28 @@ public class Util {
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(con.getProperties()).build();
             sessionFactory = con.buildSessionFactory(serviceRegistry);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
         try {
             java.sql.Driver driver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(driver);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
-    public Connection getConnection(){
-        try{
+    public Connection getConnection() {
+        try {
             return DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (SQLException e){
-            System.err.println(e.getMessage());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return null;
+
     }
 
-    public SessionFactory getSessionFactory(){
+    public SessionFactory getSessionFactory() {
         return this.sessionFactory;
     }
 }

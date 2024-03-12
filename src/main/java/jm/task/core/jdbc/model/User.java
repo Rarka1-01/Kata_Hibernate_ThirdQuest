@@ -1,6 +1,7 @@
 package jm.task.core.jdbc.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -27,11 +28,6 @@ public class User {
         this.name = name;
         this.lastName = lastName;
         this.age = age;
-    }
-
-    @Override
-    public String toString(){
-        return "Name: " + this.name + "\nLastName: " + this.lastName + "\nAge: " + this.age;
     }
 
     public Long getId() {
@@ -64,5 +60,35 @@ public class User {
 
     public void setAge(Byte age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + this.name + "\nLastName: " + this.lastName + "\nAge: " + this.age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(age, user.age);
+    }
+
+    @Override
+    public int hashCode() {
+        long idBits = (id != null) ? id.hashCode() : 0;
+        long nameBits = (name != null) ? name.hashCode() : 0;
+        long lastNameBits = (lastName != null) ? lastName.hashCode() : 0;
+        long ageBits = (age != null) ? age.hashCode() : 0;
+
+        int result = (int) (idBits ^ (idBits >>> 32));
+        result = 31 * result + (int) (nameBits ^ (nameBits >>> 32));
+        result = 31 * result + (int) (lastNameBits ^ (lastNameBits >>> 32));
+        result = 31 * result + (int) (ageBits ^ (ageBits >>> 32));
+        return result;
     }
 }

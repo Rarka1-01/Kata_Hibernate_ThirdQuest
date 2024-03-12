@@ -34,18 +34,18 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        try(PreparedStatement preparedStatement = util.getConnection().prepareStatement(CREATE_USER_TABLE)){
+        try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(CREATE_USER_TABLE)) {
             preparedStatement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
 
     @Override
     public void dropUsersTable() {
-        try(PreparedStatement preparedStatement = util.getConnection().prepareStatement(DROP_USER_TABLE)){
+        try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(DROP_USER_TABLE)) {
             preparedStatement.execute();
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
